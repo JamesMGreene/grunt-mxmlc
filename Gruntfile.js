@@ -10,22 +10,29 @@
 
 module.exports = function(grunt) {
 
+  var os = require('os');
+  var tmpDir = typeof os.tmpdir === 'function' ? os.tmpdir() : os.tmpDir();
+
   // Project configuration.
   grunt.initConfig({
     jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>'
-      ],
       options: {
         jshintrc: '.jshintrc'
-      }
+      },
+      all: [
+        'Gruntfile.js',
+        'tasks/**/*.js',
+        '<%= nodeunit.tests %>'
+      ]
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['test/testData/**/*.swf']
+      options: {
+        // `force: true` is required to delete files outside of the current working directory
+        force: true
+      },
+      tests: [tmpDir + '/**/*.swf']
     },
 
     // Configuration to be run (and then tested).
@@ -34,23 +41,22 @@ module.exports = function(grunt) {
         rawConfig: '+configname=air'
       },
       testCompileSuccess: {
-        files: {
-          'test/testData/testApp.swf': ['test/testData/testApp.as']
-        }
+        src: ['test/testData/testApp.as'],
+        dest: tmpDir + '/testApp.swf'
       },
       testCompileFailureDueToSynaxError: {
         options: {
+          // `force: true` is required to not fail the Grunt run (as we KNOW this one should cause an error)
           force: true
         },
-        files: {
-          'test/testData/errorApp.swf': ['test/testData/errorApp.as']
-        }
+        src: ['test/testData/errorApp.as'],
+        dest: tmpDir + '/errorApp.swf'
       }
     },
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js']
+      tests: ['test/**/*_test.js']
     }
 
   });
