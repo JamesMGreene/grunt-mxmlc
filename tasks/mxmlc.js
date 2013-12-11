@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       // TODO: Start using the real defaults soon-ish
       //var cmdLineOpts = mxmlcOptions.toCommandLineFormat(options);
       // TEMPORARY HACK!
-      var cmdLineOpts = options.rawConfig.split(/\s+/g);
+      var cmdLineOpts = options.rawConfig ? options.rawConfig.split(/\s+/g) : [];
       if (f.dest) {
         cmdLineOpts.push('-output');
         cmdLineOpts.push(f.dest);
