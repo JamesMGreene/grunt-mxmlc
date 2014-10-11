@@ -24,13 +24,13 @@
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0",
-    "npm":  ">= 1.2.10"
+    "npm": ">= 1.2.10"
   },
   "scripts": {
     "test": "grunt travis --verbose"
   },
   "peerDependencies": {
-    "flex-sdk": ">= 3.0.0-0"
+    "flex-sdk": "^3.0.0-0 || ^4.0.0-0"
   },
   "dependencies": {
     "async": "~0.2.9"
@@ -40,7 +40,7 @@
     "grunt-contrib-jshint": "~0.6.2",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-clean": "~0.5.0",
-    "flex-sdk": ">= 3.0.0-0"
+    "flex-sdk": "^3.0.0-0 || ^4.0.0-0"
   },
   "keywords": [
     "gruntplugin",
